@@ -2,6 +2,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// MEMORIA DISTRIBUIDA PARA QUE SESSION FUNCIONE
+builder.Services.AddDistributedMemoryCache();
+// CREAMOS UN SERVICIO DE SESSION
+builder.Services.AddSession(options => { 
+    options.IdleTimeout = TimeSpan.FromMinutes(10); 
+});
 
 var app = builder.Build();
 
@@ -19,10 +25,12 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+// HABILITAMOS SESSION PARA EL SERVER
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=EjemploSession}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 

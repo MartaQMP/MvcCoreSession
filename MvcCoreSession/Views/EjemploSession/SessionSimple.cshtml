@@ -1,0 +1,16 @@
+﻿@section style{
+    <style>
+        p{
+            text-align:center;
+        }
+    </style>
+}
+
+<h1>Session simple</h1>
+<hr />
+<p>
+    <a asp-asp-controller="EjemploSession" asp-action="SessionSimple" asp-route-accion="almacenar" class="btn btn-outline-dark">Almacenar</a>
+    <a asp-asp-controller="EjemploSession" asp-action="SessionSimple" asp-route-accion="mostrar" class="btn btn-outline-dark">Mostrar</a>
+</p>
+<h2>@ViewBag.Mensaje</h2>
+<h2>@ViewBag.Nombre - @ViewBag.Hora</h2>

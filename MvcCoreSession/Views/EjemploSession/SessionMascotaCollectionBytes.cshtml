@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MvcCoreSession.Models.Mascota>
+@section style{
+    <style>
+        table{
+            width:70%;
+            margin:auto;
+            text-align:center;
+        }
+        p{
+            text-align:center
+        }
+    </style>
+}
+
+<h1>Session Mascota Collection Bytes</h1>
+<hr />
+<p>
+    <a asp-controller="EjemploSession" asp-action="SessionMascotaCollectionBytes" asp-route-accion="almacenar" class="btn btn-outline-dark">Almacenar</a>
+    <a asp-controller="EjemploSession" asp-action="SessionMascotaCollectionBytes" asp-route-accion="mostrar" class="btn btn-outline-dark">Mostrar</a>
+</p>
+<hr>
+<h4>@ViewBag.Mensaje</h4>
+@if(Model != null){
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Raza</th>
+                <th>Edad</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) 
+        {
+            <tr>
+                <td>
+                   @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                   @Html.DisplayFor(modelItem => item.Raza)
+                </td>
+                <td>
+                   @Html.DisplayFor(modelItem => item.Edad)
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
