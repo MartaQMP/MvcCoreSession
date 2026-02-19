@@ -4,7 +4,7 @@ namespace MvcCoreSession.Helpers
 {
     public class HelperBinarySession
     {
-        // CONVERTIMOS OBJETO A BYTE
+        // CONVERTIMOS OBJETO A BYTE[]
         public static byte[] ObjectToByte(Object objeto)
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -15,7 +15,7 @@ namespace MvcCoreSession.Helpers
             }
         }
 
-        // CONVERTIMOS DE BYTE A OBJETO
+        // CONVERTIMOS DE BYTE[] A OBJETO
         public static Object ByteToObject(byte[] datos)
         {
             BinaryFormatter formatter = new BinaryFormatter();

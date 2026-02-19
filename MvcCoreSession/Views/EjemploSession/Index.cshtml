@@ -1,11 +1,29 @@
-﻿@section style{
-    <style>
+﻿@using MvcCoreSession.Helpers;
+@using MvcCoreSession.Extensions;
+@model List<Mascota> 
 
-    </style>
-}
 @{
-    Mascota mascota = ViewBag.Mascota as Mascota;
+    Mascota mascota = null;
+    /* DIBUJAR MASCOTA EN INDEX */
+
+    /*--- MASCOTA BYTES ---*/
+    byte[] datosByte = Context.Session.Get("MASCOTA");
+    if(Context.Session.Get("MASCOTA") != null)
+     {
+        mascota = (Mascota)HelperBinarySession.ByteToObject(datosByte);
+     }
+    /*--- MASCOTA JSON ---*/
+    string datosJson = Context.Session.GetString("MASCOTAJSON");
+    if(Context.Session.GetString("MASCOTA") != null)
+    {
+        mascota = (Mascota)HelperJsonSession.DeserializeObject<Mascota>(datosJson);
+    }
+    /*--- MASCOTA GENERICA ---*/
+    mascota = Context.Session.GetObject<Mascota>("MASCOTAGENERICA");
+    /*--- MASCOTAS GENERICAS ---*/
+    List<Mascota> mascotas = Context.Session.GetObject<List<Mascota>>("MASCOTASGENERICAS");
 }
+
 <h1>Ejemplos Session</h1>
 <hr />
 <h2>@Context.Session.GetString("nombre") - @Context.Session.GetString("hora")</h2>
@@ -14,14 +32,81 @@
     <h2>Nombre: @mascota.Nombre, Raza: @mascota.Raza, Edad: @mascota.Edad</h2>
 }
 <hr />
+@if (mascotas != null)
+{
+    <table class="table table-danger">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Raza</th>
+                <th>Edad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in mascotas)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Raza)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Edad)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<hr />
 <ul class="list-group">
-    <li class="list-group-item">
+    <li class="list-group-item list-group-item-secondary">
         <a asp-controller="EjemploSession" asp-action="SessionSimple">Session Simple</a>
     </li>
     <li class="list-group-item">
         <a asp-controller="EjemploSession" asp-action="SessionMascotaBytes">Session Mascota Bytes</a>
     </li>
     <li class="list-group-item">
+        <a asp-controller="EjemploSession" asp-action="SessionMascotaJson">Session Mascota Json</a>
+    </li>
+    <li class="list-group-item">
+        <a asp-controller="EjemploSession" asp-action="SessionMascotaGenericos">Session Mascota Genericos</a>
+    </li>
+    <li class="list-group-item">
         <a asp-controller="EjemploSession" asp-action="SessionMascotaCollectionBytes">Session Mascota Collection Bytes</a>
     </li>
+    <li class="list-group-item">
+        <a asp-controller="EjemploSession" asp-action="SessionMascotaCollectionGenericos">Session Mascota Collection Genericos</a>
+    </li>
 </ul>
+<hr />
+@if(Model!= null)
+{
+    <table class="table table-success">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Raza</th>
+                <th>Edad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in mascotas)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Raza)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Edad)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

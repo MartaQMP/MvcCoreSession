@@ -1,0 +1,23 @@
+﻿@section style {
+    <style>
+        p {
+            text-align: center;
+        }
+    </style>
+}
+@{
+    Mascota mascota = ViewBag.Mascota as Mascota;
+}
+
+<h1>Session Mascota Generica</h1>
+<hr />
+<h4>@ViewBag.Mensaje</h4>
+<p>
+    <a asp-controller="EjemploSession" asp-action="SessionMascotaGenericos" asp-route-accion="almacenar" class="btn btn-outline-dark">Almacenar</a>
+    <a asp-controller="EjemploSession" asp-action="SessionMascotaGenericos" asp-route-accion="mostrar" class="btn btn-outline-dark">Mostrar</a>
+</p>
+<hr />
+@if (mascota != null)
+{
+    <h2>Nombre: @mascota.Nombre, Raza: @mascota.Raza, Edad: @mascota.Edad</h2>
+}
